@@ -19,7 +19,9 @@
 ;; some other basic emacs options config
 (setq vc-follow-symlinks t
       enable-recursive-minibuffers t
-      gc-cons-threshold 2000000)
+      gc-cons-threshold 2000000
+      electric-indent-mode nil
+      inhibit-startup-screen t)
 
 ;;; the elpaca installer
 (defvar elpaca-installer-version 0.5)
@@ -362,7 +364,8 @@ one, an error is signaled."
 (use-package evil-smartparens)
 
 ;; aggressive-indent
-(use-package aggressive-indent)
+(use-package aggressive-indent
+  :config (global-aggressive-indent-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; languages
