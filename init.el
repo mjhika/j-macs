@@ -458,5 +458,12 @@ one, an error is signaled."
         cider-repl-wrap-history nil
         cider-stacktrace-default-filters '(tooling dup)))
 
+;;; golang
+(use-package go-mode)
+(defun lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+
 (provide 'init)
 ;;; init.el ends here
