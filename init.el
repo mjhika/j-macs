@@ -94,6 +94,10 @@
     :prefix ",") ;; set localleader
 
   (jm/leader-keys
+    "u" '(universal-argument :wk "C-u")
+    "SPC" '(execute-extended-command :wk "M-x"))
+
+  (jm/leader-keys
     "TAB" '(:ignore t :wk "Comment")
     "TAB TAB" '(comment-line :wk "Comment line")
     "TAB r" '(comment-or-uncomment-region :wk "Comment or Uncomment region"))
@@ -102,7 +106,10 @@
     "f" '(:ignore t :wk "File")
     "f s" '(save-buffer :wk "Find file")
     "f f" '(find-file :wk "Find file")
-    "f c" '((lambda () (interactive) (find-file "~/j-macs/init.el")) :wk "Edit emacs config"))
+    "f c" '((lambda () (interactive)
+	      (find-file (concat user-emacs-directory
+				 "init.el")))
+	    :wk "Edit emacs config"))
 
   (jm/leader-keys
     "b" '(:ignore t :wk "Buffer")
@@ -127,7 +134,8 @@
     "h f" '(describe-function :wk "Describe function")
     "h v" '(describe-variable :wk "Describe variable")
     "h r r" '((lambda () (interactive)
-		(load-file "~/j-macs/init.el")
+		(load-file (concat user-emacs-directory
+				   "init.el"))
 		(ignore (elpaca-process-queues)))
               :wk "Reload emacs config"))
 
@@ -369,7 +377,7 @@ one, an error is signaled."
 
 ;; line numbers
 (global-display-line-numbers-mode 1)
-(global-visual-line-mode 'relative)
+(global-visual-line-mode 't)
 
 ;; edit a file that i should have opened with sudo
 (use-package sudo-edit
