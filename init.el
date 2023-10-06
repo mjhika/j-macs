@@ -16,6 +16,11 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; some other basic emacs options config
+(setq vc-follow-symlinks t
+      enable-recursive-minibuffers t
+      gc-cons-threshold 2000000)
+
 ;;; the elpaca installer
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
