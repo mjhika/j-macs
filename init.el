@@ -27,9 +27,9 @@
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                       :ref nil
-                       :files (:defaults (:exclude "extensions"))
-                       :build (:not elpaca--activate-package)))
+			      :ref nil
+			      :files (:defaults (:exclude "extensions"))
+			      :build (:not elpaca--activate-package)))
 (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
@@ -61,10 +61,10 @@
 
 ;; elpaca use-package support
 (elpaca elpaca-use-package
-        ;; Enable :elpaca use-package keyword.
-        (elpaca-use-package-mode)
-        ;; Assume :elpaca t unless otherwise specified.
-        (setq elpaca-use-package-by-default t))
+  ;; Enable :elpaca use-package keyword.
+  (elpaca-use-package-mode)
+  ;; Assume :elpaca t unless otherwise specified.
+  (setq elpaca-use-package-by-default t))
 
 ;; block until the current queue is processed
 (elpaca-wait)
@@ -127,7 +127,7 @@
     "h r r" '((lambda () (interactive)
 		(load-file "~/j-macs/init.el")
 		(ignore (elpaca-process-queues)))
-	      :wk "Reload emacs config"))
+              :wk "Reload emacs config"))
 
   (jm/leader-keys
     "t" '(:ignore t :wk "Toggle")
@@ -178,8 +178,7 @@
     "e i" '(cider-interrupt :wk "interrupt")
     "q" '(:ignore t :wk "quit")
     "q q" '(cider-quit :wk "quit")
-    "q r" '(cider-restart :wk "restart")
-    )
+    "q r" '(cider-restart :wk "restart"))
 
   (jm/leader-keys
     "w" '(:ignore t :wk "Windows")
@@ -198,8 +197,8 @@
     "w H" '(buf-move-left :wk "Buffer move left")
     "w J" '(buf-move-down :wk "Buffer move down")
     "w K" '(buf-move-up :wk "Buffer move up")
-    "w L" '(buf-move-right :wk "Buffer move right"))
-  )
+    "w L" '(buf-move-right :wk "Buffer move right")))
+
 (elpaca-wait)
 
 ;; some nice icons
@@ -218,11 +217,11 @@
   "Swap the current buffer and the buffer above the split.
 If there is no split, ie now window above the current one, an
 error is signaled."
-;;  "Switches between the current buffer, and the buffer above the
-;;  split, if possible."
+  ;;  "Switches between the current buffer, and the buffer above the
+  ;;  split, if possible."
   (interactive)
   (let* ((other-win (windmove-find-other-window 'up))
-	 (buf-this-buf (window-buffer (selected-window))))
+         (buf-this-buf (window-buffer (selected-window))))
     (if (null other-win)
         (error "No window above this one")
       ;; swap top with this one
@@ -233,12 +232,12 @@ error is signaled."
 
 ;;;###autoload
 (defun buf-move-down ()
-"Swap the current buffer and the buffer under the split.
+  "Swap the current buffer and the buffer under the split.
 If there is no split, ie now window under the current one, an
 error is signaled."
   (interactive)
   (let* ((other-win (windmove-find-other-window 'down))
-	 (buf-this-buf (window-buffer (selected-window))))
+         (buf-this-buf (window-buffer (selected-window))))
     (if (or (null other-win) 
             (string-match "^ \\*Minibuf" (buffer-name (window-buffer other-win))))
         (error "No window under this one")
@@ -250,12 +249,12 @@ error is signaled."
 
 ;;;###autoload
 (defun buf-move-left ()
-"Swap the current buffer and the buffer on the left of the split.
+  "Swap the current buffer and the buffer on the left of the split.
 If there is no split, ie now window on the left of the current
 one, an error is signaled."
   (interactive)
   (let* ((other-win (windmove-find-other-window 'left))
-	 (buf-this-buf (window-buffer (selected-window))))
+         (buf-this-buf (window-buffer (selected-window))))
     (if (null other-win)
         (error "No left split")
       ;; swap top with this one
@@ -266,12 +265,12 @@ one, an error is signaled."
 
 ;;;###autoload
 (defun buf-move-right ()
-"Swap the current buffer and the buffer on the right of the split.
+  "Swap the current buffer and the buffer on the right of the split.
 If there is no split, ie now window on the right of the current
 one, an error is signaled."
   (interactive)
   (let* ((other-win (windmove-find-other-window 'right))
-	 (buf-this-buf (window-buffer (selected-window))))
+         (buf-this-buf (window-buffer (selected-window))))
     (if (null other-win)
         (error "No right split")
       ;; swap top with this one
@@ -284,7 +283,7 @@ one, an error is signaled."
 (use-package evil
   :demand t
   :init      ;; tweak evil's configuration before loading it
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-integration t) ;; This is t by default.
   (setq evil-want-keybinding nil)
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below t)
@@ -300,22 +299,22 @@ one, an error is signaled."
 
 ;; set the default fonts
 (set-face-attribute 'default nil
-  :font "Berkeley Mono"
-  :height 130
-  :weight 'medium)
+		    :font "Berkeley Mono"
+		    :height 130
+		    :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-  :font "Berkeley Mono Variable"
-  :height 140
-  :weight 'medium)
+		    :font "Berkeley Mono Variable"
+		    :height 140
+		    :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-  :font "Berkeley Mono"
-  :height 130
-  :weight 'medium)
+		    :font "Berkeley Mono"
+		    :height 130
+		    :weight 'medium)
 ;; Makes commented text and keywords italics.
 ;; This is working in emacsclient but not emacs.
 ;; Your font must have an italic face available.
 (set-face-attribute 'font-lock-comment-face nil
-  :slant 'italic)
+		    :slant 'italic)
 
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
@@ -332,26 +331,26 @@ one, an error is signaled."
 ;; edit a file that i should have opened with sudo
 (use-package sudo-edit
   :config
-    (jm/leader-keys
-      "f u" '(sudo-edit-find-file :wk "Sudo find file")
-      "f U" '(sudo-edit :wk "Sudo edit file")))
+  (jm/leader-keys
+    "f u" '(sudo-edit-find-file :wk "Sudo find file")
+    "f U" '(sudo-edit :wk "Sudo edit file")))
 
 ;; setup and enable which-key
 (use-package which-key
   :init (which-key-mode 1)
   :config
   (setq which-key-side-window-location 'bottom
-    which-key-sort-order #'which-key-key-order-alpha
-    which-key-sort-uppercase-first nil
-    which-key-add-column-padding 1
-    which-key-max-display-columns nil
-    which-key-min-display-lines 6
-    which-key-side-window-slot -10
-    which-key-side-window-max-height 0.25
-    which-key-idle-delay 0.8
-    which-key-max-description-length 25
-    which-key-allow-imprecise-window-fit t
-    which-key-separator " → " ))
+	which-key-sort-order #'which-key-key-order-alpha
+	which-key-sort-uppercase-first nil
+	which-key-add-column-padding 1
+	which-key-max-display-columns nil
+	which-key-min-display-lines 6
+	which-key-side-window-slot -10
+	which-key-side-window-max-height 0.25
+	which-key-idle-delay 0.8
+	which-key-max-description-length 25
+	which-key-allow-imprecise-window-fit t
+	which-key-separator " → "))
 
 ;; setup auto complete
 (use-package company
