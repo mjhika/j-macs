@@ -356,7 +356,9 @@ one, an error is signaled."
 
 ;; setup auto complete
 (use-package company
-  :hook ((prog-mode text-mode) . company-mode))
+  :hook ((prog-mode text-mode) . company-mode)
+  :init (setq company-idle-delay 0
+	      company-minimum-prefix-length 1))
 
 ;; smartparens
 (use-package smartparens
@@ -366,6 +368,20 @@ one, an error is signaled."
 ;; aggressive-indent
 (use-package aggressive-indent
   :config (global-aggressive-indent-mode 1))
+
+;; lsp
+(use-package lsp-mode
+  :hook ((go-mode) . lsp)
+  :hook (lsp-mode . lsp-enable-which-key-integration)
+  :commands lsp
+  :init
+  (setq lsp-keymap-prefix "C-,"))
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+;; flycheck
+(use-package flycheck
+  :hook (afrter-init . global-flycheck-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; languages
