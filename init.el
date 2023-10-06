@@ -183,6 +183,28 @@
     "q r" '(cider-restart :wk "restart"))
 
   (jm/leader-keys
+    :keymaps 'smartparens-mode-map
+    "s" '(:ignore t :wk "smartparens")
+    "s <" '(sp-backward-barf-sexp :wk "Barf backward")
+    "s >" '(sp-forward-barf-sexp :wk "Barf forward")
+    "s (" '(sp-backward-slurp-sexp :wk "Slurp backward")
+    "s )" '(sp-forward-slurp-sexp :wk "Slurp forward")
+    "s }" '(sp-slurp-hybrid-sexp :wk "Slurp (hybrid)")
+    "s +" '(sp-join-sexp :wk "Join")
+    "s -" '(sp-split-sexp :wk "Split")
+    "s a" '(sp-absorb-sexp :wk "Absorb")
+    "s c" '(sp-clone-sexp :wk "Clone")
+    "s C" '(sp-convolute-sexp :wk "Convolute")
+    "s m" '(sp-mark-sexp :wk "Mark")
+    "s r" '(sp-raise-sexp :wk "Raise")
+    "s s" '(sp-splice-sexp-killing-around :wk "Splice")
+    "s t" '(sp-transpose-sexp :wk "Transpose")
+    "s T" '(sp-transpose-hybrid-sexp :wk "Transpose (hybrid)")
+    ;; Narrow and Widen, use default emacs for widening
+    "s w" '(widen :wk "Emacs widen")
+    "s n" '(sp-narrow-to-sexp :wk "Narrow"))
+
+  (jm/leader-keys
     "w" '(:ignore t :wk "Windows")
     ;; Window splits
     "w c" '(evil-window-delete :wk "Close window")
