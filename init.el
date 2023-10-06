@@ -371,6 +371,7 @@ one, an error is signaled."
 ;; languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; clojure
 (use-package clojure-mode
   :init
   (setq clojure-indent-style 'align-arguments
@@ -382,8 +383,6 @@ one, an error is signaled."
   (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
 
 (use-package cider
-  ;; :after clojure
-  ;; :hook (clojure-mode . cider-mode)
   :init
   (setq cider-repl-pop-to-buffer-on-connect 'display-only
 	cider-preferred-build-tool 'clojure-cli
