@@ -323,6 +323,25 @@ one, an error is signaled."
 ;; are not right unless I also add this method of setting the default font.
 (add-to-list 'default-frame-alist '(font . "Berkeley Mono-13"))
 
+;; theme
+(use-package doom-themes
+  :ensure t
+  :init (setq doom-themes-enable-bold t
+              doom-themes-enable-italic t)
+  :config (load-theme 'doom-one t))
+
+;; doom modeline
+(use-package doom-modeline
+  :ensure t
+  :init
+  (setq doom-modeline-icon nil)
+  (doom-modeline-mode 1)
+  :hook (after-init . doom-modeline-mode))
+
+;; rainbow delimiters
+(use-package rainbow-delimiters
+  :hook ((prog-mode) . rainbow-delimiters-mode))
+
 ;; Uncomment the following line if line spacing needs adjusting.
 ;; (setq-default line-spacing 0.12)
 
