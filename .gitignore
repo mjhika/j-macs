@@ -1,5 +1,7 @@
 eln-cache/
 elpaca/
 transient/
+eshell/
 
 tramp
+.lsp-session-v1
