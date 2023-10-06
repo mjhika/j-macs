@@ -372,8 +372,8 @@ one, an error is signaled."
   :config
   (add-hook 'clojure-mode-hook #'subword-mode)
   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-  )
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+
 (use-package cider
   ;; :after clojure
   ;; :hook (clojure-mode . cider-mode)
@@ -393,8 +393,7 @@ one, an error is signaled."
         cider-repl-use-clojure-font-lock t
         cider-repl-use-pretty-printing t
         cider-repl-wrap-history nil
-        cider-stacktrace-default-filters '(tooling dup))
-  )
+        cider-stacktrace-default-filters '(tooling dup)))
 
 (provide 'init)
 ;;; init.el ends here
