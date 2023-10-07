@@ -5,3 +5,5 @@ eshell/
 
 tramp
 .lsp-session-v1
+history
+projectile-bookmarks.eld

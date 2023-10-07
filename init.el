@@ -23,6 +23,17 @@
       electric-indent-mode nil
       inhibit-startup-screen t)
 
+(when (eq system-type 'gnu/linux)
+  (let ((machine-go "/usr/local/go/bin")
+	(user-go "~/go/bin"))
+    (add-to-list 'exec-path "/usr/local/go/bin")
+    (add-to-list 'exec-path "~/go/bin")
+    (setenv "PATH"
+	    (concat
+	     machine-go path-separator
+	     user-go path-separator
+	     (getenv "PATH")))))
+
 ;;; the elpaca installer
 (defvar elpaca-installer-version 0.5)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -229,7 +240,12 @@
     "w H" '(buf-move-left :wk "Buffer move left")
     "w J" '(buf-move-down :wk "Buffer move down")
     "w K" '(buf-move-up :wk "Buffer move up")
-    "w L" '(buf-move-right :wk "Buffer move right")))
+    "w L" '(buf-move-right :wk "Buffer move right"))
+
+  (jm/leader-keys
+    "p" '(projectile-command-map :wk "Projectile"))
+
+  )
 
 (elpaca-wait)
 
@@ -408,6 +424,51 @@ one, an error is signaled."
   :hook ((prog-mode text-mode) . company-mode)
   :init (setq company-idle-delay 0
 	      company-minimum-prefix-length 1))
+
+;; yasnippet
+(use-package yasnippet-snippets)
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+;; projectile
+(use-package projectile
+  :init (setq )
+  :config
+  (projectile-mode +1))
+
+;; fzf.el
+(use-package fzf
+  ;; :bind
+  ;; Don't forget to set keybinds!
+  :config
+  (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
+        fzf/executable "fzf"
+        fzf/git-grep-args "-i --line-number %s"
+        ;; command used for `fzf-grep-*` functions
+        ;; example usage for ripgrep:
+        ;; fzf/grep-command "rg --no-heading -nH"
+        fzf/grep-command "grep -nrH"
+        ;; If nil, the fzf buffer will appear at the top of the window
+        fzf/position-bottom t
+        fzf/window-height 15))
+
+;; vertico
+(use-package vertico
+  :init
+  (vertico-mode)
+  ;; Different scroll margin
+  ;; (setq vertico-scroll-margin 0)
+  ;; Show more candidates
+  (setq vertico-count 20)
+  ;; Grow and shrink the Vertico minibuffer
+  (setq vertico-resize t)
+  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
+  (setq vertico-cycle t))
+(use-package savehist
+  :elpaca nil
+  :init ;; vertico will sort by history
+  (savehist-mode))
 
 ;; smartparens
 (use-package smartparens
