@@ -428,7 +428,9 @@ one, an error is signaled."
 (use-package company
   :hook ((prog-mode text-mode) . company-mode)
   :init (setq company-idle-delay 0
-	      company-minimum-prefix-length 1))
+	      company-require-match nil
+	      company-minimum-prefix-length 1
+	      company-auto-update-doc t))
 
 ;; yasnippet
 (use-package yasnippet-snippets)
