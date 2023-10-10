@@ -127,7 +127,7 @@
 
   (jm/leader-keys
     "f" '(:ignore t :wk "File")
-    "f s" '(save-buffer :wk "Find file")
+    "f s" '(save-buffer :wk "File save")
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive)
 	      (find-file (concat user-emacs-directory
