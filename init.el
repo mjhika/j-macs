@@ -237,8 +237,10 @@
     "s t" '(sp-transpose-sexp :wk "Transpose")
     "s T" '(sp-transpose-hybrid-sexp :wk "Transpose (hybrid)")
     ;; Narrow and Widen, use default emacs for widening
-    "s w" '(widen :wk "Emacs widen")
-    "s n" '(sp-narrow-to-sexp :wk "Narrow"))
+    "s w" '(widen :wk "Widen")
+    "s n" '(:ignore t :wk "Narrow")
+    "s n n" '(narrow-to-defun :wk "defun")
+    "s n s" '(sp-narrow-to-sexp :wk "sexp"))
 
   (jm/leader-keys
     "w" '(:ignore t :wk "Windows")
