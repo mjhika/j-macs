@@ -2,6 +2,7 @@ eln-cache/
 elpaca/
 transient/
 eshell/
+backups/
 
 tramp
 .lsp-session-v1
