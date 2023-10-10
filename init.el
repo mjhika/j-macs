@@ -447,10 +447,11 @@ one, an error is signaled."
 	      company-auto-update-doc t))
 
 ;; yasnippet
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :after yasnippet)
 (use-package yasnippet
-  :config
-  (yas-global-mode 1))
+  ;; :config (yas-global-mode 1)
+  :hook (prog-mode . yas-minor-mode))
 
 ;; projectile
 (use-package projectile
@@ -568,7 +569,8 @@ one, an error is signaled."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; add magit
-(use-package magit)
+(use-package magit
+  :commands magit)
 
 (provide 'init)
 ;;; init.el ends here
