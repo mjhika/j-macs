@@ -23,6 +23,9 @@
       electric-indent-mode nil
       inhibit-startup-screen t)
 
+;; echo startup time
+(add-hook 'emacs-startup-hook (lambda () (message (concat "Emacs started in " (emacs-init-time)))))
+
 ;; stop polluting my projects with your backus and auto-saves.
 ;; move them into my user-emacs-directory
 (when (not (file-directory-p (expand-file-name "auto-save-list" user-emacs-directory)))
