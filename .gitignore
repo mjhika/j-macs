@@ -3,6 +3,7 @@ elpaca/
 transient/
 eshell/
 backups/
+auto-save-list/
 
 tramp
 .lsp-session-v1
