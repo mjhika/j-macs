@@ -23,6 +23,18 @@
       electric-indent-mode nil
       inhibit-startup-screen t)
 
+;; stop polluting my projects with your backus and auto-saves.
+;; move them into my user-emacs-directory
+(when (not (file-directory-p (expand-file-name "auto-save-list" user-emacs-directory)))
+  (make-directory (expand-file-name "auto-save-list" user-emacs-directory)))
+
+;; Put backups and auto-save files in subdirectories, so the
+;; user-emacs-directory doesn't clutter
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name "backups" user-emacs-directory)))
+      auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "auto-save-list/" user-emacs-directory) t)))
+
 (when (eq system-type 'gnu/linux)
   (let ((machine-go "/usr/local/go/bin")
 	(user-go "~/go/bin"))
