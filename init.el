@@ -113,11 +113,12 @@
     :states '(normal insert visual emacs)
     :keymaps 'override
     :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC") ;; access leader in insert mode
+    :global-prefix "C-SPC") ;; access leader in insert mode
 
   (general-create-definer jm/localleader-keys
     :states '(normal visual)
-    :prefix ",") ;; set localleader
+    :prefix ","
+    :global-prefix "C-,") ;; set localleader
 
   (jm/leader-keys
     "u" '(universal-argument :wk "C-u")
@@ -453,12 +454,10 @@ one, an error is signaled."
 (use-package yasnippet-snippets
   :after yasnippet)
 (use-package yasnippet
-  ;; :config (yas-global-mode 1)
   :hook (prog-mode . yas-minor-mode))
 
 ;; projectile
 (use-package projectile
-  :init (setq )
   :config
   (projectile-mode +1))
 
@@ -497,20 +496,26 @@ one, an error is signaled."
 
 ;; smartparens
 (use-package smartparens
-  :config (smartparens-global-mode 1))
-(use-package evil-smartparens)
+  :config (smartparens-global-strict-mode 1))
+(use-package evil-smartparens
+  :hook (smartparens-enabled . evil-smartparens-mode))
 
 ;; aggressive-indent
 (use-package aggressive-indent
-  :config (global-aggressive-indent-mode 1))
+  :hook ((go-mode
+	  emacs-lisp-mode)
+	 . aggressive-indent-mode))
 
 ;; lsp
 (use-package lsp-mode
-  :hook ((go-mode) . lsp)
+  :hook ((go-mode
+	  clojure-mode)
+	 . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :commands lsp
   :init
-  (setq lsp-keymap-prefix "C-,"))
+  (setq lsp-keymap-prefix "C-'"
+	lsp-enable-indentation nil))
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
@@ -530,8 +535,7 @@ one, an error is signaled."
 	clojure-verify-major-mode nil)
   :config
   (add-hook 'clojure-mode-hook #'subword-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
 
 (use-package cider
   :init

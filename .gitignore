@@ -1,9 +1,10 @@
+.cache/
+auto-save-list/
+backups/
 eln-cache/
 elpaca/
-transient/
 eshell/
-backups/
-auto-save-list/
+transient/
 
 tramp
 .lsp-session-v1
