@@ -513,7 +513,10 @@ one, an error is signaled."
 ;; lsp
 (use-package lsp-mode
   :hook ((go-mode
-	  clojure-mode)
+	  clojure-mode
+	  mhtml-mode
+	  html-mode
+	  css-mode)
 	 . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :commands lsp
