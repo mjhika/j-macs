@@ -124,6 +124,10 @@
     "u" '(universal-argument :wk "C-u")
     "SPC" '(execute-extended-command :wk "M-x"))
 
+  (general-define-key
+   "M-+" '(jm/zoom-frame :wk "Increase Font Size")
+   "M--" '(jm/zoom-frame-out :wk "Decrease Font Size"))
+
   (jm/leader-keys
     "TAB" '(:ignore t :wk "Comment")
     "TAB TAB" '(comment-line :wk "Comment line")
@@ -578,6 +582,25 @@ one, an error is signaled."
 ;;; add magit
 (use-package magit
   :commands magit)
+
+;;; frame font zooming
+;; taken from somewhere in on stack overflow or something
+(defun jm/zoom-frame (&optional amt frame)
+  "Increaze FRAME font size by amount AMT. Defaults to selected
+frame if FRAME is nil, and to 1 if AMT is nil."
+  (interactive "p")
+  (let* ((frame (or frame (selected-frame)))
+         (font (face-attribute 'default :font frame))
+         (size (font-get font :size))
+         (amt (or amt 1))
+         (new-size (+ size amt)))
+    (set-frame-font (font-spec :size new-size) t `(,frame))
+    (message "Frame's font new size: %d" new-size)))
+
+(defun jm/zoom-frame-out (&optional amt frame)
+  "Call `jm/zoom-frame' with negative argument."
+  (interactive "p")
+  (jm/zoom-frame (- (or amt 1)) frame))
 
 (provide 'init)
 ;;; init.el ends here
