@@ -533,13 +533,14 @@ one, an error is signaled."
 
 ;;; clojure
 (use-package clojure-mode
+  :hook
+  (clojure-mode . subword-mode)
+  (clojure-mode . rainbow-delimiters-mode)
+  (clojure-mode . electric-indent-local-mode)
   :init
   (setq clojure-indent-style 'align-arguments
 	clojure-toplevel-inside-comment-form t
-	clojure-verify-major-mode nil)
-  :config
-  (add-hook 'clojure-mode-hook #'subword-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+	clojure-verify-major-mode nil))
 
 (use-package cider
   :init
