@@ -5,6 +5,7 @@ eln-cache/
 elpaca/
 eshell/
 transient/
+url/
 
 tramp
 .lsp-session-v1
