@@ -507,6 +507,7 @@ one, an error is signaled."
 ;; aggressive-indent
 (use-package aggressive-indent
   :hook ((go-mode
+	  js-mode
 	  emacs-lisp-mode)
 	 . aggressive-indent-mode))
 
@@ -516,7 +517,8 @@ one, an error is signaled."
 	  clojure-mode
 	  mhtml-mode
 	  html-mode
-	  css-mode)
+	  css-mode
+	  js-mode)
 	 . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :commands lsp
@@ -565,19 +567,18 @@ one, an error is signaled."
         cider-stacktrace-default-filters '(tooling dup)))
 
 ;;; golang
-(use-package go-mode)
 (defun lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+(use-package go-mode
+  :hook (go-mode . lsp-go-install-save-hooks))
 
-;;; html & css
-(use-package web-mode
-  :init
-  (setq web-mode-markup-indent-offset 2
-	web-mode-css-indent-offset 2
-	web-mode-code-indent-offset 2)
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+;;; javascript
+(use-package prettier-js
+  :hook ((js-mode
+	  html-mode
+	  css-mode)
+	 . prettier-js-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; end languages
