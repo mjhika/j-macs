@@ -521,10 +521,12 @@ one, an error is signaled."
 	  js-mode)
 	 . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
-  :commands lsp
+  :commands (lsp lsp-deferred)
+  :config
+  (general-def 'normal lsp-mode :definer 'minor-mode
+    "SPC l" lsp-command-map)
   :init
-  (setq lsp-keymap-prefix "C-'"
-	lsp-enable-indentation nil))
+  (setq lsp-enable-indentation nil))
 (use-package lsp-ui
   :commands lsp-ui-mode)
 
