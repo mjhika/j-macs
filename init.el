@@ -397,11 +397,10 @@ one, an error is signaled."
 (add-to-list 'default-frame-alist '(font . "Berkeley Mono-13"))
 
 ;; theme
-(use-package doom-themes
+(use-package almost-mono-themes
   :ensure t
-  :init (setq doom-themes-enable-bold t
-              doom-themes-enable-italic t)
-  :config (load-theme 'doom-one t))
+  :elpaca (:host github :repo "mjhika/almost-mono-themes")
+  :config (load-theme 'almost-mono-green t))
 
 ;; doom modeline
 (use-package doom-modeline
