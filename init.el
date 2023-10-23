@@ -365,6 +365,7 @@ one, an error is signaled."
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-d-scroll t)
   (setq evil-shift-width 2)
+  (setq evil-respect-visual-line-mode 1) ;; should be non-nil
   (evil-mode))
 (use-package evil-collection
   :after evil
