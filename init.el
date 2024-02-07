@@ -40,24 +40,24 @@
 
 (when (eq system-type 'gnu/linux)
   (let ((machine-go "/usr/local/go/bin")
-	(user-go "~/go/bin"))
+        (user-go "~/go/bin"))
     (add-to-list 'exec-path "/usr/local/go/bin")
     (add-to-list 'exec-path "~/go/bin")
     (setenv "PATH"
-	    (concat
-	     machine-go path-separator
-	     user-go path-separator
-	     (getenv "PATH")))))
+      (concat
+       machine-go path-separator
+       user-go path-separator
+       (getenv "PATH")))))
 
 ;;; the elpaca installer
-(defvar elpaca-installer-version 0.5)
+(defvar elpaca-installer-version 0.6)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-			      :ref nil
-			      :files (:defaults (:exclude "extensions"))
-			      :build (:not elpaca--activate-package)))
+                              :ref nil
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
 (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
@@ -117,8 +117,8 @@
 
   (general-create-definer jm/localleader-keys
     :states '(normal visual)
-    :prefix ","
-    :global-prefix "C-,") ;; set localleader
+    :prefix ";"
+    :global-prefix "C-;") ;; set localleader
 
   (jm/leader-keys
     "u" '(universal-argument :wk "C-u")
@@ -138,9 +138,9 @@
     "f s" '(save-buffer :wk "File save")
     "f f" '(find-file :wk "Find file")
     "f c" '((lambda () (interactive)
-	      (find-file (concat user-emacs-directory
-				 "init.el")))
-	    :wk "Edit emacs config"))
+             (find-file (concat user-emacs-directory
+                         "init.el")))
+            :wk "Edit emacs config"))
 
   (jm/leader-keys
     "b" '(:ignore t :wk "Buffer")
@@ -155,19 +155,19 @@
     :keymaps 'emacs-lisp-mode-map
     "e" '(:ignore t :wk "Eval")    
     "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
-    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
-    "e e" '(eval-expression :wk "Evaluate and elisp expression")
+    "e r" '(eval-defun :wk "Evaluate defun containing or after point")
+    "e e" '(eval-expression :wk "Evaluate elisp expression")
     "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
-    "e r" '(eval-region :wk "Evaluate elisp in region")) 
+    "e R" '(eval-region :wk "Evaluate elisp in region")) 
 
   (jm/leader-keys
     "h" '(:ignore t :wk "Help")
     "h f" '(describe-function :wk "Describe function")
     "h v" '(describe-variable :wk "Describe variable")
     "h r r" '((lambda () (interactive)
-		(load-file (concat user-emacs-directory
-				   "init.el"))
-		(ignore (elpaca-process-queues)))
+               (load-file (concat user-emacs-directory
+                           "init.el"))
+               (ignore (elpaca-process-queues)))
               :wk "Reload emacs config"))
 
   (jm/leader-keys
@@ -177,50 +177,42 @@
 
   (jm/localleader-keys
     :keymaps 'clojure-mode-map
-    "'" '(:ignore t :wk "jack in")
-    "' c" '(cider-jack-in :wk "jack-in")
-    "' j" '(cider-jack-in-clj :wk "jack-in clj")
-    "' b" '(cider-jack-in-clj&cljs :wk "jack-in clj&cljs")
-    "' s" '(cider-jack-in-cljs :wk "jack-in cljs")
-    "' u" '(cider-jack-in-universal :wk "jack-in universal")
-    "." '(:ignore t :wk "connect")
-    ". c" '(cider-connect :wk "connect")
-    ". j" '(cider-connect-clj :wk "connect clj")
-    ". b" '(cider-connect-clj&cljs :wk "connect clj&cljs")
-    ". s" '(cider-connect-cljs :wk "connect cljs")
-    ". C" '(cider-connect-sibling-clj :wk "connect universal")
-    ". S" '(cider-connect-sibling-cljs :wk "connect universal")
+    "c" '(:ignore t :wk "jack in")
+    "c c" '(cider-jack-in :wk "jack-in")
+    "c j" '(cider-jack-in-clj :wk "jack-in clj")
+    "c b" '(cider-jack-in-clj&cljs :wk "jack-in clj&cljs")
+    "c s" '(cider-jack-in-cljs :wk "jack-in cljs")
+    "c u" '(cider-jack-in-universal :wk "jack-in universal")
+    "C" '(:ignore t :wk "connect")
+    "C c" '(cider-connect :wk "connect")
+    "C j" '(cider-connect-clj :wk "connect clj")
+    "C b" '(cider-connect-clj&cljs :wk "connect clj&cljs")
+    "C s" '(cider-connect-cljs :wk "connect cljs")
+    "C C" '(cider-connect-sibling-clj :wk "connect universal")
+    "C S" '(cider-connect-sibling-cljs :wk "connect universal")
     "d" '(:ignore t :wk "Doc")
-    "d d" '(cider-doc :wk "cider doc")
-    "d c" '(cider-clojuredocs :wk "clojuredocs cider")
+    "d c" '(cider-doc :wk "cider doc")
+    "d d" '(cider-clojuredocs :wk "clojuredocs cider")
     "d w" '(cider-clojuredocs-web :wk "clojuredocs web")
     "d j" '(cider-javadoc :wk "javadoc")
     "e" '(:ignore t :wk "Eval")
     "e e" '(cider-eval-last-sexp :wk "last sexp")
-    "e d" '(:ignore t :wk "defun")
-    "e d d" '(cider-eval-defun-at-point :wk "defun at point")
-    "e d u" '(cider-eval-defun-up-to-point :wk "defun to point")
-    "e d c" '(cider-eval-defun-to-comment :wk "defun to comment")
-    "e p" '(:ignore t :wk "pprint")
-    "e p d" '(:ignore t :wk "pprint defun")
-    "e p d d" '(cider-pprint-eval-defun-at-point :wk "pprint defun")
-    "e p d c" '(cider-pprint-eval-defun-to-comment :wk "pprint defun to comment")
+    "e r" '(cider-eval-defun-at-point :wk "defun")
+    "e c r" '(cider-eval-defun-to-comment :wk "defun to comment")
+    "e c" '(:ignore t :wk "pprint")
+    "e c d" '(cider-pprint-eval-defun-at-point :wk "pprint defun")
+    "e c c" '(cider-pprint-eval-defun-to-comment :wk "pprint defun to comment")
     "e b" '(:ignore t :wk "buffer")
     "e b b" '(cider-load-buffer :wk "buffer")
     "e b r" '(cider-load-buffer :wk "buffer load repl")
-    "e f" '(:ignore t :wk "file")
-    "e f f" '(cider-load-file :wk "file")
-    "e f a" '(cider-load-all-files :wk "all files")
-    "e r" '(cider-eval-region :wk "region")
+    "e f" '(cider-load-file :wk "file")
+    "e F" '(cider-load-all-files :wk "all files")
+    "E r" '(cider-eval-region :wk "region")
     "e n" '(cider-eval-ns-form :wk "ns form")
-    "e l" '(:ignore t :wk "last sexp")
-    "e l r" '(cider-eval-last-sexp-to-repl :wk "last sexp repl")
-    "e l s" '(cider-eval-last-sexp :wk "last sexp")
-    "e l x" '(cider-eval-last-sexp-and-replace :wk "last sexp replace")
-    "e l c" '(cider-eval-last-sexp-in-context :wk "last sexp context")
+    "e !" '(cider-eval-last-sexp-and-replace :wk "last sexp replace")
     "e t" '(:ignore t :wk "tap")
-    "e t l" '(cider-tap-last-sexp :wk "last sexp")
-    "e t a" '(cider-tap-sexp-at-point :wk "sexp at point")
+    "e t" '(cider-tap-last-sexp :wk "last sexp")
+    "e T" '(cider-tap-sexp-at-point :wk "sexp at point")
     "e i" '(cider-interrupt :wk "interrupt")
     "q" '(:ignore t :wk "quit")
     "q q" '(cider-quit :wk "quit")
@@ -270,9 +262,7 @@
     "w L" '(buf-move-right :wk "Buffer move right"))
 
   (jm/leader-keys
-    "p" '(projectile-command-map :wk "Projectile"))
-
-  )
+    "p" '(projectile-command-map :wk "Projectile")))
 
 (elpaca-wait)
 
@@ -375,22 +365,22 @@ one, an error is signaled."
 
 ;; set the default fonts
 (set-face-attribute 'default nil
-		    :font "Berkeley Mono"
-		    :height 130
-		    :weight 'medium)
+        :font "Berkeley Mono"
+        :height 130
+        :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-		    :font "Berkeley Mono Variable"
-		    :height 140
-		    :weight 'medium)
+        :font "Berkeley Mono Variable"
+        :height 140
+        :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-		    :font "Berkeley Mono"
-		    :height 130
-		    :weight 'medium)
+        :font "Berkeley Mono"
+        :height 130
+        :weight 'medium)
 ;; Makes commented text and keywords italics.
 ;; This is working in emacsclient but not emacs.
 ;; Your font must have an italic face available.
 (set-face-attribute 'font-lock-comment-face nil
-		    :slant 'italic)
+        :slant 'italic)
 
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
@@ -398,10 +388,14 @@ one, an error is signaled."
 (add-to-list 'default-frame-alist '(font . "Berkeley Mono-13"))
 
 ;; theme
-(use-package almost-mono-themes
+;; (use-package almost-mono-themes
+;;   :ensure t
+;;   :elpaca (:host github :repo "mjhika/almost-mono-themes")
+;;   :config (load-theme 'almost-mono-green t))
+(use-package color-theme-sanityinc-tomorrow
   :ensure t
-  :elpaca (:host github :repo "mjhika/almost-mono-themes")
-  :config (load-theme 'almost-mono-green t))
+  :config 
+  (load-theme 'sanityinc-tomorrow-bright t))
 
 ;; doom modeline
 (use-package doom-modeline
@@ -441,7 +435,8 @@ one, an error is signaled."
 ;; (setq-default line-spacing 0.12)
 
 ;; line numbers
-(global-display-line-numbers-mode 1)
+(display-line-numbers-mode 'relative)
+(global-display-line-numbers-mode 'relative)
 (global-visual-line-mode 't)
 
 ;; edit a file that i should have opened with sudo
@@ -456,25 +451,25 @@ one, an error is signaled."
   :init (which-key-mode 1)
   :config
   (setq which-key-side-window-location 'bottom
-	which-key-sort-order #'which-key-key-order-alpha
-	which-key-sort-uppercase-first nil
-	which-key-add-column-padding 1
-	which-key-max-display-columns nil
-	which-key-min-display-lines 6
-	which-key-side-window-slot -10
-	which-key-side-window-max-height 0.25
-	which-key-idle-delay 0.8
-	which-key-max-description-length 25
-	which-key-allow-imprecise-window-fit t
-	which-key-separator " → "))
+   which-key-sort-order #'which-key-key-order-alpha
+   which-key-sort-uppercase-first nil
+   which-key-add-column-padding 1
+   which-key-max-display-columns nil
+   which-key-min-display-lines 6
+   which-key-side-window-slot -10
+   which-key-side-window-max-height 0.25
+   which-key-idle-delay 0.8
+   which-key-max-description-length 25
+   which-key-allow-imprecise-window-fit t
+   which-key-separator " → "))
 
 ;; setup auto complete
 (use-package company
   :hook ((prog-mode text-mode) . company-mode)
   :init (setq company-idle-delay 0
-	      company-require-match nil
-	      company-minimum-prefix-length 1
-	      company-auto-update-doc t))
+         company-require-match nil
+         company-minimum-prefix-length 1
+         company-auto-update-doc t))
 
 ;; yasnippet
 (use-package yasnippet-snippets
@@ -529,19 +524,14 @@ one, an error is signaled."
 ;; aggressive-indent
 (use-package aggressive-indent
   :hook ((go-mode
-	  js-mode
-	  emacs-lisp-mode)
-	 . aggressive-indent-mode))
+          emacs-lisp-mode)
+         . aggressive-indent-mode))
 
 ;; lsp
 (use-package lsp-mode
   :hook ((go-mode
-	  clojure-mode
-	  mhtml-mode
-	  html-mode
-	  css-mode
-	  js-mode)
-	 . lsp-deferred)
+          clojure-mode)
+         . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :commands (lsp lsp-deferred)
   :config
@@ -568,27 +558,28 @@ one, an error is signaled."
   (clojure-mode . electric-indent-local-mode)
   :init
   (setq clojure-indent-style 'align-arguments
-	clojure-toplevel-inside-comment-form t
-	clojure-verify-major-mode nil))
+   clojure-toplevel-inside-comment-form t
+   clojure-verify-major-mode nil))
 
 (use-package cider
   :init
-  (setq cider-repl-pop-to-buffer-on-connect 'display-only
-	cider-preferred-build-tool 'clojure-cli
-	cider-repl-display-help-banner nil
-	cider-enrich-classpath t
-	nrepl-hide-special-buffers t
-        nrepl-log-messages nil
-	cider-save-file-on-load t
-        cider-font-lock-dynamically '(macro core function var deprecated)
-        cider-overlays-use-font-lock t
-        cider-prompt-for-symbol nil
-        cider-repl-result-prefix ";; => "
-        cider-repl-print-length 100
-        cider-repl-use-clojure-font-lock t
-        cider-repl-use-pretty-printing t
-        cider-repl-wrap-history nil
-        cider-stacktrace-default-filters '(tooling dup)))
+  (setq
+   cider-repl-pop-to-buffer-on-connect nil
+   cider-preferred-build-tool 'clojure-cli
+   cider-repl-display-help-banner nil
+   cider-enrich-classpath t
+   nrepl-hide-special-buffers t
+   nrepl-log-messages nil
+   cider-save-file-on-load t
+   cider-font-lock-dynamically '(macro core function var deprecated)
+   cider-overlays-use-font-lock t
+   cider-prompt-for-symbol nil
+   cider-repl-result-prefix ";; => "
+   cider-repl-print-length 100
+   cider-repl-use-clojure-font-lock t
+   cider-repl-use-pretty-printing t
+   cider-repl-wrap-history nil
+   cider-stacktrace-default-filters '(tooling dup)))
 
 ;;; golang
 (defun lsp-go-install-save-hooks ()
@@ -597,20 +588,9 @@ one, an error is signaled."
 (use-package go-mode
   :hook (go-mode . lsp-go-install-save-hooks))
 
-;;; javascript
-(use-package prettier-js
-  :hook ((js-mode
-	  html-mode
-	  css-mode)
-	 . prettier-js-mode))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; end languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; add magit
-(use-package magit
-  :commands magit)
 
 ;;; frame font zooming
 ;; taken from somewhere in on stack overflow or something
